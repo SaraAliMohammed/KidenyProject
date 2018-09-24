@@ -123,8 +123,11 @@ USE_TZ = True
 #STATIC_URL = BASE_DIR+'/templates/static/'
 
 #STATIC_ROOT = 'static'
+#+++++++++++++++ Media +++++++++++++++++++++++++
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+#+++++++++++++++ STATIC +++++++++++++++++++++++++
 #BASE_DIR_static = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'

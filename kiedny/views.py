@@ -8,7 +8,9 @@ import os
 # Create your views here.
 def Home(request):
     context={}
-    print '==================='
-    print settings.BASE_DIR
-    print '==================='
     return render(request,'kideny/home.html',context)
+
+def Load(request):
+    context={}
+
+    return render(request,'kideny/Load.html',context)

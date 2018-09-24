@@ -1,28 +1,57 @@
 {%  extends 'base.html' %}
 
 
+{% block style %}
+   <style>
+   .mode
+   {
+        width: 50%;
+        visibility :hidden;
+   }
+    .mode button
+    {
+        margin-left: 2em;
+        size:2vw;
+        width: 100%;
 
+    }
+
+   </style>
+{% endblock style %}
 {% block title %}
-    EC3 - Add Lun
+   Home
 {% endblock title %}
 
 {% block main_content %}
-test
+<div style="margin-top: 2em">
     <div >
-                  <input type="radio" name="radio" id="radio1" />
-                  <label class="text-white"  style="font-size:5vw;">All</label>
-                </div>
+        <a   style="font-size:2vw;"  href="/kideny/load">Load Data</a>
 
-                  <div >
-                  <input type="radio" name="radio" id="radio2" />
-                  <label class="text-white"  style="font-size:5vw;">Steps</label>
-                </div>
-                <div >
+</div>
 
-                </div>
-                  <button class="btn btn-secondary"  style="font-size:2vw;" type="button">kideny segmentation</button>
+    <div  class="mode">
+    <input type="radio" name="radio" id="radio1" />
+    <label class="text-white"  style="font-size:2vw;" >Batch Moode</label>
+    <br/>
+    <button class="btn btn-secondary"   type="button" >Go</button>
+</div>
 
-           <button class="btn btn-secondary" type="button">kideny segmentation</button>
+    <div class="mode">
+    <input type="radio" name="radio" id="radio2"  />
+    <label class="text-white"  style="font-size:2vw;" >StepWise Mode</label>
+        <br/>
+    <button class="btn btn-secondary"    type="button" >Kideny Segmentation</button>
+        <br/>
+    <button class="btn btn-secondary"   type="button" >Motion Correction</button>
 
-test
+        <br/>
+    <button class="btn btn-secondary"  type="button" >Kideny Diagnosis</button>
+
+</div>
+
+</div>
+
+
+
+
 {% endblock main_content %}
