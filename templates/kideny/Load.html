@@ -1,9 +1,22 @@
 {%  extends 'base.html' %}
 
 {% block title %}
-   Load
+   Upload Data
 {% endblock title %}
 
 {% block main_content %}
-dddd
+<div style="margin-top: 2em;color:red">
+   <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile" webkitdirectory mozdirectory msdirectory odirectory directory multiple>
+    <button type="submit">Upload</button>
+  </form>
+
+</div>
+
+{% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+  {% endif %}
+
+
 {% endblock main_content %}

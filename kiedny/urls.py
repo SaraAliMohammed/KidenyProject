@@ -1,7 +1,9 @@
 from django.conf.urls import url,include
-from views import Home,Load
+from views import Load , Home
 urlpatterns = [
-    url(r'', Home),
-    url(r'^load/',Load),
+    url(r'^$', Home,name='Home'),
+    url(r'^Load$',Load,name='Load'),
+    url(r'^Load$',Load,name='Load'),
+
 
 ]

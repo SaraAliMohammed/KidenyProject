@@ -33,27 +33,20 @@
         {% endblock style %}
   </head>
 
-  <!--<body background="{% static 'img/3bg-mobile-fallback.jpg' %}">-->
+
  <body style=" background-image:url({% static 'img/3bg-mobile-fallback.jpg' %});
  background-position: center center;
  background-repeat:  no-repeat;
  background-attachment: fixed;
  background-size:  cover;">
-  <!--<body background="{% static 'img/3bg-mobile-fallback.jpg' %}"  background-position: center center; background-repeat:  no-repeat; background-attachment: fixed; background-size:  cover;>--
-
-
-
-  <!--  <div class="overlay"></div>
-    -->
 
     <div class="masthead">
-   <!--   <div class="masthead-bg"></div>-->
       <div class="container h-100">
         <div class="row h-100">
           <div class="col-12">
 
-	{% block main_content %}
-            EC3
+	    {% block main_content %}
+
         {% endblock main_content %}
 
 
@@ -63,27 +56,6 @@
       </div>
     </div>
 
-    <!--
-    <div class="social-icons">
-      <ul class="list-unstyled text-center mb-0">
-        <li class="list-unstyled-item">
-          <a href="#">
-            <i class="fa fa-twitter"></i>
-          </a>
-        </li>
-        <li class="list-unstyled-item">
-          <a href="#">
-            <i class="fa fa-facebook"></i>
-          </a>
-        </li>
-        <li class="list-unstyled-item">
-          <a href="#">
-            <i class="fa fa-instagram"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
--->
     <!-- Bootstrap core JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
