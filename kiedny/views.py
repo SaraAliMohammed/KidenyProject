@@ -8,7 +8,7 @@ from Kidenydashboard import  settings
 import os
 from django.core.files.storage import FileSystemStorage
 from django.utils.crypto import get_random_string
-
+import time
 # Create your views here.
 
 
@@ -18,11 +18,20 @@ def Load(request):
         # create diroctry for each user
         unique_id = get_random_string(length=32)
         # loop on files and upload it
+        index=0
+        count=len(request.FILES.getlist('myfile'))
+
         for img in request.FILES.getlist('myfile'):
+            index+=1
             fs =  FileSystemStorage(
                 location=settings.MEDIA_ROOT+'\\'+unique_id
                     )
             filename = fs.save(img.name, img)
+            time.sleep(.5)
+            return render(request, 'kideny/Load.html', {
+                'Count': count,
+                'Done':index,
+            })
             request.session['ImagFoldar'] =unique_id
 
         return render(request, 'kideny/Load.html', {

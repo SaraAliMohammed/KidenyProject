@@ -12,7 +12,8 @@
     <button type="submit">Upload</button>
        {{ request.session.ImagFoldar }}
   </form>
-
+<progress value="{{Done}}" max="{{Count}}">
+</progress>
 </div>
 
 {% if uploaded_file_url %}
