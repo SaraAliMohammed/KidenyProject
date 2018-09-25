@@ -10,6 +10,7 @@
     {% csrf_token %}
     <input type="file" name="myfile" webkitdirectory mozdirectory msdirectory odirectory directory multiple>
     <button type="submit">Upload</button>
+       {{ request.session.ImagFoldar }}
   </form>
 
 </div>

@@ -7,24 +7,27 @@ from Kidenydashboard import  settings
 
 import os
 from django.core.files.storage import FileSystemStorage
+from django.utils.crypto import get_random_string
+
 # Create your views here.
 
 
 def Load(request):
     context={}
     if request.method == 'POST': #and request.FILES['myfile']:
-    # create diroctry for each user
-    # loop on files and upload it 
+        # create diroctry for each user
+        unique_id = get_random_string(length=32)
+        # loop on files and upload it
         for img in request.FILES.getlist('myfile'):
             fs =  FileSystemStorage(
-    location=settings.MEDIA_URL+'a'
-
-)
+                location=settings.MEDIA_ROOT+'\\'+unique_id
+                    )
             filename = fs.save(img.name, img)
-            print img.name
+            request.session['ImagFoldar'] =unique_id
+
         return render(request, 'kideny/Load.html', {
-            'uploaded_file_url': 'Done'
-        })
+        'uploaded_file_url': 'Done'
+            })
 
     return render(request, 'kideny/Load.html')
 
