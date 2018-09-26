@@ -18,9 +18,12 @@ from django.contrib import admin
 from  kiedny import urls as kidenyurls
 from django.conf.urls.static import static
 import settings
+from django.views.generic.base import TemplateView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^kideny/', include(kidenyurls))
+    url(r'^kideny/', include(kidenyurls)),
+    url(r'^$', TemplateView.as_view(template_name='kideny/home.html'),
+                      name='home'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

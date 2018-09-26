@@ -15,7 +15,7 @@ import time
 
 def Home(request):
     context={}
-    print '++++ Ho ++++++++++'
+    print 'asd'
     return render(request,'kideny/home.html',context)
 
 def Load(request):
@@ -49,4 +49,14 @@ def Load(request):
 
 def Initialization(request):
     context={}
+    #get user slices
+    if request.session['ImagFoldar']:
+        fs = FileSystemStorage(
+            location=settings.MEDIA_ROOT + '\\' + request.session['ImagFoldar']
+        )
+        Slices=fs.listdir(settings.MEDIA_ROOT + '\\' + request.session['ImagFoldar'])
+        context['Slices']=Slices[1]
+        context['media_root']= settings.MEDIA_ROOT
+        context['media_url']=settings.MEDIA_URL
+        print context
     return render(request, 'kideny/Initialization.html',context)
