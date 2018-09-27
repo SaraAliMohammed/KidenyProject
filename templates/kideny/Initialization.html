@@ -1,39 +1,100 @@
 {% extends 'base.html' %}
 {% load staticfiles  %}
 
-{% block title %} EC3 - Host Details {% endblock title %}
+{% block title %} Initialization{% endblock title %}
+{% block page-header %}
+                             Initialization
+{% endblock page-header %}
 
-{% block css %}
-
-    <link href="{% static 'bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css' %}" rel="stylesheet"/>
-    <link href="{% static 'bower_components/datatables-responsive/css/dataTables.responsive.css' %}" rel="stylesheet"/>
-{% endblock css %}
 
 {% block main_content %}
 
-    <div id="page-wrapper">
-
-    </div>
-{% endblock main_content %}
- <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-  <div class="carousel-inner">
-      {% for slice in Slices %}
-             <div class="carousel-item  {% if forloop.counter == 1 %}active {% endif %}">
-
-                <img class="d-block w-100" src="{{ media_url }}\\{{request.session.ImagFoldar}}\\{{slice}}" alt="First slide">
-            </div>
+     <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                         <div class="panel-body">
+                            <div class="row">
 
 
-      {% endfor %}
 
+                                <div class="col-lg-4">
+   <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <!-- Indicators -->
+   <!--
+    <ol class="carousel-indicators">
+          {% for slice in Slices %}
+      <li data-target="#myCarousel" data-slide-to="{{forloop.counter }}" class="{% if forloop.counter == 1 %}active {% endif %}"></li>
+        {% endfor %}
+    </ol>
+-->
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+         {% for slice in Slices %}
+      <div class="item {% if forloop.counter == 1 %}active {% endif %}">
+        <img src="{{ media_url }}\\{{request.session.ImagFoldar}}\\{{slice}}" id="{{forloop.counter }}" style="width:100%;">
+      </div>
+        {% endfor %}
+
+
+
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="glyphicon glyphicon-chevron-left"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <span class="sr-only">Next</span>
+    </a>
   </div>
-  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
 </div>
 
+                                 </div>
+                                <div class="col-lg-4">
+                                </div>
+                                <div class="col-lg-4">
+                                    <a href="#" id="SelectRef" class="btn btn-primary">Select referance</a>
+
+
+
+                                </div>
+                            </div>
+                             <div class="row" id="result">
+
+                             </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+
+{% endblock main_content %}
+
+{% block javascript %}
+<script>
+
+$(document).ready(function() {
+
+$("#SelectRef").click(function(){
+console.log("SelectRef");
+    $.get("SelectRef/"+$( ".active" ).children('img').attr("id")
+,
+    function(data, status){
+console.log(data.data);
+if(data.status=="Done")
+        $("#result").html('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Your Referance is  '+data.data+' </div>');
+ else
+        $("#result").html('<div class="alert alert-danger  alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Error Call Admin</div>');
+
+
+    });
+});
+
+
+});
+
+</script>
+{% endblock javascript %}

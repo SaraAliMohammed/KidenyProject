@@ -9,6 +9,7 @@ import os
 from django.core.files.storage import FileSystemStorage
 from django.utils.crypto import get_random_string
 import time
+from django.http import JsonResponse
 # Create your views here.
 
 
@@ -20,6 +21,8 @@ def Home(request):
 
 def Load(request):
     context={}
+    request.session['uploaded_file_url']=''
+    request.session['ImagFoldar']=''
 
     if request.method == 'POST': #and request.FILES['myfile']:
         # create diroctry for each user
@@ -39,8 +42,9 @@ def Load(request):
                 'Count': count,
                 'Done':index,
             })'''
-            request.session['ImagFoldar'] =unique_id
-        context['uploaded_file_url'] = str(index) + ' Slices have been uploaded '
+        request.session['ImagFoldar'] =unique_id
+        request.session['uploaded_file_url'] = str(index) + ' Slices have been uploaded '
+        context['uploaded_file_url'] = str(index) + ' Slices have been uploaded Now you can intialize'
         return render(request, 'kideny/Load.html', context)
     else :
         context['uploaded_file_url']=''
@@ -58,5 +62,14 @@ def Initialization(request):
         context['Slices']=Slices[1]
         context['media_root']= settings.MEDIA_ROOT
         context['media_url']=settings.MEDIA_URL
-        print context
+
     return render(request, 'kideny/Initialization.html',context)
+
+def SelectRef(request,refnumber):
+    context = {}
+    request.session['SelectRef'] = refnumber
+    data = {
+        'data': refnumber,
+        'status':'Done'
+    }
+    return JsonResponse(data)
