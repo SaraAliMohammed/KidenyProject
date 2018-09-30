@@ -15,7 +15,12 @@
                          <div class="panel-body">
                             <div class="row">
 
-
+ <div class="col-lg-4" style="display:none">
+            <canvas id="canvas" width="640" height="480" style="cursor:crosshair;" data-imgsrc="Slice.014.bmp"  oncontextmenu="return false;">
+                Your browser does not support the HTML5 canvas tag.
+            </canvas>
+            <button id="btnAccept">Accept</button>
+        </div>
 
                                 <div class="col-lg-4">
    <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -52,10 +57,13 @@
                                  </div>
                                 <div class="col-lg-4">
                                 </div>
-                                <div class="col-lg-4">
-                                    <a href="#" id="SelectRef" class="btn btn-primary">Select referance</a>
-
-
+                                <div class="col-lg-4 panel-body">
+                                    <div class="form-group">
+                                        <a href="" id="SelectRef" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Select referance</a>
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="" id="Initialization" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Initialization</a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -74,13 +82,23 @@
 {% endblock main_content %}
 
 {% block javascript %}
+  <script type="text/javascript" src="{% static 'paint/paper-full.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'paint/style.css' %}">
+
 <script>
 
 $(document).ready(function() {
+String.prototype.filename=function(extension){
+    var s= this.replace(/\\/g, '/');
+    console.log(s);
+    s= s.substring(s.lastIndexOf('/')+ 1);
+    console.log(s);
+    return s;
+}
 
 $("#SelectRef").click(function(){
-console.log("SelectRef");
-    $.get("SelectRef/"+$( ".active" ).children('img').attr("id")
+
+    $.get("SelectRef/"+$( ".active" ).children('img').attr("id")+"/"+$( ".active" ).children('img').attr("src").filename()
 ,
     function(data, status){
 console.log(data.data);

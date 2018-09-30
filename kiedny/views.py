@@ -3,8 +3,6 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render,HttpResponse,redirect
 from django.conf.urls.static import static
-from Kidenydashboard import  settings
-
 import os
 from django.core.files.storage import FileSystemStorage
 from django.utils.crypto import get_random_string
@@ -12,6 +10,51 @@ import time
 from django.http import JsonResponse
 # Create your views here.
 
+
+
+from django.conf import settings
+import sys
+import clr
+
+from System import *
+from System.Drawing import Point
+from System.Collections import *
+from System.Collections.Generic import *
+from django.conf import settings
+
+import os
+
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+clr.AddReference(os.path.join(PROJECT_ROOT, 'dll/KidneySegmentation.dll'))
+
+from KidneySegmentation import InitializeSegmentation, Segmentation
+
+
+def testdddl(request):
+    ID = String("ID")
+    RootPath = String("RootPath")
+    referance = 5
+    data = [String("Path1"), String("Path2"), String("Path3")]
+    KidneyPoints = [Point(1, 1), Point(2, 1), Point(1, 3)]
+    ROIPoints = [Point(1, 1), Point(2, 1), Point(1, 3)]
+    CortexPoints = [KidneyPoints, ROIPoints]
+    width = 256
+    height = 256
+    XScaler = 1
+    YScaler = 1
+    path = String(os.path.join(PROJECT_ROOT, 'AC-003'))
+    print path
+    init = InitializeSegmentation.LoadState(path)
+
+    if init is not None:
+        seg = Segmentation.KidneySegmentation(init, os.path.join(PROJECT_ROOT,'FFD_Registeration'))
+    else:
+        print 'nulll'
+
+    print settings.MEDIA_ROOT
+
+    return HttpResponse("Hello, world. You're at the polls index.")
 
 
 def Home(request):
@@ -65,11 +108,13 @@ def Initialization(request):
 
     return render(request, 'kideny/Initialization.html',context)
 
-def SelectRef(request,refnumber):
+def SelectRef(request,refnumber,path):
     context = {}
-    request.session['SelectRef'] = refnumber
+    request.session['SelectRef'] = refnumber.split('/')[0]
+    request.session['Selectedimgpath'] = path
     data = {
         'data': refnumber,
         'status':'Done'
     }
     return JsonResponse(data)
+
