@@ -15,7 +15,7 @@
                          <div class="panel-body">
                             <div class="row">
 
- <div class="col-lg-4" style="display:none">
+ <div class="col-lg-4" style="display:none" id="Canvasdiv">
             <canvas id="canvas" width="640" height="480" style="cursor:crosshair;" data-imgsrc="Slice.014.bmp"  oncontextmenu="return false;">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
@@ -62,7 +62,7 @@
                                         <a href="" id="SelectRef" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Select referance</a>
                                     </div>
                                     <div class="form-group">
-                                        <a href="" id="Initialization" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Initialization</a>
+                                        <a href=""  id="Initialization" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Initialization</a>
                                     </div>
 
                                 </div>
@@ -86,7 +86,7 @@
   <link rel="stylesheet" href="{% static 'paint/style.css' %}">
 
 <script>
-
+var c = document.getElementById("myCanvas");
 $(document).ready(function() {
 String.prototype.filename=function(extension){
     var s= this.replace(/\\/g, '/');
@@ -110,9 +110,25 @@ if(data.status=="Done")
 
     });
 });
-
-
+$('#Initialization').click(function(e) {
+e.preventDefault();
+showPainter();
+    //do other stuff when a click happens
 });
 
+});
+function showPainter()
+{
+
+$("#SelectRef").attr('disabled','disabled');
+$("#myCarousel").attr('display','none');
+$("#myCarousel").hide();
+$("#canvasdiv").show();
+var c=document.getElementById("canvas");
+var ctx=c.getContext("2d");
+var img = new Image();
+img.src = "{{ media_url }}{{request.session.ImagFoldar}}/{{request.session.Selectedimgpath}}";
+console.log(img.src);
+}
 </script>
 {% endblock javascript %}
