@@ -15,8 +15,8 @@
                          <div class="panel-body">
                             <div class="row">
 
- <div class="col-lg-4" style="display:none" id="Canvasdiv">
-            <canvas id="canvas" width="640" height="480" style="cursor:crosshair;" data-imgsrc="Slice.014.bmp"  oncontextmenu="return false;">
+ <div class="col-lg-4"  id="Canvasdiv">
+            <canvas id="canvas" width="256" height="256" style="cursor:crosshair;" data-imgsrc="Slice.014.bmp"  oncontextmenu="return false;">
                 Your browser does not support the HTML5 canvas tag.
             </canvas>
             <button id="btnAccept">Accept</button>
@@ -88,6 +88,7 @@
 <script>
 var c = document.getElementById("myCanvas");
 $(document).ready(function() {
+$("#Canvasdiv").hide();
 String.prototype.filename=function(extension){
     var s= this.replace(/\\/g, '/');
     console.log(s);
@@ -111,8 +112,9 @@ if(data.status=="Done")
     });
 });
 $('#Initialization').click(function(e) {
-e.preventDefault();
+
 showPainter();
+e.preventDefault();
     //do other stuff when a click happens
 });
 
@@ -121,14 +123,25 @@ function showPainter()
 {
 
 $("#SelectRef").attr('disabled','disabled');
-$("#myCarousel").attr('display','none');
 $("#myCarousel").hide();
-$("#canvasdiv").show();
-var c=document.getElementById("canvas");
-var ctx=c.getContext("2d");
-var img = new Image();
-img.src = "{{ media_url }}{{request.session.ImagFoldar}}/{{request.session.Selectedimgpath}}";
-console.log(img.src);
+$("#Canvasdiv").show();
+loadCanvas("{{ media_url }}{{request.session.ImagFoldar}}/{{request.session.Selectedimgpath}}");
+
 }
+
+function loadCanvas(dataURL) {
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        // load image from data url
+        var imageObj = new Image();
+        imageObj.onload = function() {
+          context.drawImage(this, 0, 0);
+        };
+
+        imageObj.src = dataURL;
+        console.log(dataURL);
+      }
+
 </script>
 {% endblock javascript %}
