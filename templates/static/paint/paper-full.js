@@ -12151,6 +12151,7 @@ DomEvent.requestAnimationFrame = new function() {
 		timer;
 
 	function handleCallbacks() {
+	debugger;
 		var functions = callbacks;
 		callbacks = [];
 		for (var i = 0, l = functions.length; i < l; i++)

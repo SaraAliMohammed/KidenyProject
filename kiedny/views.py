@@ -14,23 +14,25 @@ from django.http import JsonResponse
 
 from django.conf import settings
 import sys
+'''
 import clr
 
 from System import *
 from System.Drawing import Point
 from System.Collections import *
 from System.Collections.Generic import *
+'''
 from django.conf import settings
 
 import os
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
-clr.AddReference(os.path.join(PROJECT_ROOT, 'dll/KidneySegmentation.dll'))
+#clr.AddReference(os.path.join(PROJECT_ROOT, 'dll/KidneySegmentation.dll'))
 
-from KidneySegmentation import InitializeSegmentation, Segmentation
+#from KidneySegmentation import InitializeSegmentation, Segmentation
 
-
+'''
 def testdddl(request):
     ID = String("ID")
     RootPath = String("RootPath")
@@ -56,7 +58,7 @@ def testdddl(request):
 
     return HttpResponse("Hello, world. You're at the polls index.")
 
-
+'''
 def Home(request):
     context={}
     print 'asd'

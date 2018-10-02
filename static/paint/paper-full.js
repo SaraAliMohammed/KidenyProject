@@ -12152,12 +12152,15 @@ DomEvent.requestAnimationFrame = new function() {
 
 	function handleCallbacks() {
 		var functions = callbacks;
+
 		callbacks = [];
 		for (var i = 0, l = functions.length; i < l; i++)
 			functions[i]();
+
 		requested = nativeRequest && callbacks.length;
 		if (requested)
 			nativeRequest(handleCallbacks);
+
 	}
 
 	return function(callback) {

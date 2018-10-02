@@ -9,75 +9,74 @@
 
 {% block main_content %}
 
-     <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-default">
-                         <div class="panel-body">
-                            <div class="row">
+ <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
 
- <div class="col-lg-4"  id="Canvasdiv">
-            <canvas id="canvas" width="256" height="256" style="cursor:crosshair;" data-imgsrc="Slice.014.bmp"  oncontextmenu="return false;">
-                Your browser does not support the HTML5 canvas tag.
-            </canvas>
-            <button id="btnAccept">Accept</button>
-        </div>
+                        <div class="col-lg-4" id="Canvasdiv">
+                            <canvas id="canvas" width="256" height="256" style="cursor: crosshair;" data-imgsrc="/media/cTkEKuRDnYOLwfEXKGwlxvbIsqL8uxa2/slice.005.bmp" oncontextmenu="return false;">Your browser does not support the HTML5 canvas tag.
+                            </canvas>
+                            <button id="btnAccept">Accept</button>
+                        </div>
 
-                                <div class="col-lg-4">
-   <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-   <!--
+                        <div class="col-lg-4">
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <!--
     <ol class="carousel-indicators">
           {% for slice in Slices %}
       <li data-target="#myCarousel" data-slide-to="{{forloop.counter }}" class="{% if forloop.counter == 1 %}active {% endif %}"></li>
         {% endfor %}
     </ol>
 -->
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-         {% for slice in Slices %}
-      <div class="item {% if forloop.counter == 1 %}active {% endif %}">
-        <img src="{{ media_url }}\\{{request.session.ImagFoldar}}\\{{slice}}" id="{{forloop.counter }}" style="width:100%;">
-      </div>
-        {% endfor %}
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+                                    {% for slice in Slices %}
+                                        <div class="item {% if forloop.counter == 1 %}active {% endif %}">
+                                            <img src="{{ media_url }}\\{{request.session.ImagFoldar}}\\{{slice}}" id="{{forloop.counter }}" style="width: 100%;">
+                                        </div>
+                                    {% endfor %}
 
 
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
-
-                                 </div>
-                                <div class="col-lg-4">
-                                </div>
-                                <div class="col-lg-4 panel-body">
-                                    <div class="form-group">
-                                        <a href="" id="SelectRef" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Select referance</a>
-                                    </div>
-                                    <div class="form-group">
-                                        <a href=""  id="Initialization" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Initialization</a>
-                                    </div>
-
+            <!-- Left and right controls -->
+                                    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
                                 </div>
                             </div>
-                             <div class="row" id="result">
-
-                             </div>
-                            <!-- /.row (nested) -->
                         </div>
-                        <!-- /.panel-body -->
+
+                        <div class="col-lg-4">
+                        </div>
+
+                        <div class="col-lg-4 panel-body">
+                            <div class="form-group">
+                                <a href="" id="SelectRef" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Select referance</a>
+                            </div>
+                            <div class="form-group">
+                                <a href="" id="Initialization" class="btn btn-primary  btn-social btn-bitbucket" class="btn btn-primary">Initialization</a>
+                            </div>
+
+                        </div>
                     </div>
-                    <!-- /.panel -->
+                    <div class="row" id="result">
+                    </div>
+                    <!-- /.row (nested) -->
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.panel-body -->
             </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
 
 {% endblock main_content %}
 
@@ -88,33 +87,39 @@
 <script>
 var c = document.getElementById("myCanvas");
 $(document).ready(function() {
+
 $("#Canvasdiv").hide();
 String.prototype.filename=function(extension){
     var s= this.replace(/\\/g, '/');
     console.log(s);
     s= s.substring(s.lastIndexOf('/')+ 1);
-    console.log(s);
+    //console.log(s);
     return s;
 }
 
-$("#SelectRef").click(function(){
+$("#SelectRef").click(function(e){
 
     $.get("SelectRef/"+$( ".active" ).children('img').attr("id")+"/"+$( ".active" ).children('img').attr("src").filename()
-,
-    function(data, status){
-console.log(data.data);
-if(data.status=="Done")
-        $("#result").html('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Your Referance is  '+data.data+' </div>');
- else
-        $("#result").html('<div class="alert alert-danger  alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Error Call Admin</div>');
+        ,
+        function(data, status){
+            console.log(data.data);
+            alert(data.data);
+            if(data.status=="Done")
+                $("#result").html('<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Your Referance is  '+data.data+' </div>');
+            else
+                $("#result").html('<div class="alert alert-danger  alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>Error Call Admin</div>');
 
 
-    });
+        }
+    );
+
+    
 });
-$('#Initialization').click(function(e) {
 
-showPainter();
+$('#Initialization').click(function(e) {
 e.preventDefault();
+showPainter();
+
     //do other stuff when a click happens
 });
 
@@ -130,6 +135,7 @@ loadCanvas("{{ media_url }}{{request.session.ImagFoldar}}/{{request.session.Sele
 }
 
 function loadCanvas(dataURL) {
+
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
 
@@ -144,4 +150,74 @@ function loadCanvas(dataURL) {
       }
 
 </script>
+
+<script type="text/paperscript" canvas="canvas">
+
+        var path;
+        // Create a new path and set its stroke color to red:
+        path = new Path({
+            segments: [],
+            strokeColor: 'red',
+            // Select the path, so we can see its segment points:
+            fullySelected: true
+        });
+
+        var textItem = new PointText({
+            content: 'Click and drag to draw a line.',
+            point: new Point(20, 30),
+            fillColor: 'black',
+        });
+
+        // When the user click on the mouse, points are added to the path
+        // at the position of the mouse:
+        function onMouseDown(event) {
+            if(path){
+            //check if start point
+                if(path.segments.length != 0)
+                {
+                    if(path.segments[0].point._x == event.point.x && path.segments[0].point._y == event.point.y){
+                        finishPath();
+                }
+                else
+                {
+
+                 path.add(event.point);
+                 console.log(path.segments);
+                 // Update the content of the text item to show how many
+                 // segments it has:
+                 textItem.content = 'Segment count: ' + path.segments.length;
+                }
+                }else{
+
+                    path.add(event.point);
+                    // Update the content of the text item to show how many
+                    // segments it has:
+                    textItem.content = 'Segment count: ' + path.segments.length;
+                }
+            }
+        }
+
+        function finishPath(){
+            var segmentCount = path.segments.length;
+            path.closed = true;
+            //path.add(path.segments[0]);
+            path.simplify(10);
+
+            var newSegmentCount = path.segments.length;
+            var difference = segmentCount - newSegmentCount;
+            var percentage = 100 - Math.round(newSegmentCount / segmentCount * 100);
+            textItem.content = difference + ' of the ' + segmentCount + ' segments were removed. Saving ' + percentage + '%';
+            path.selected = false;
+            path = null;
+            document.getElementById('canvas').style.cursor = 'pointer';
+        }
+
+        document.getElementById('btnAccept').onclick = function(){
+            if(path){
+                finishPath();
+            }
+            document.getElementById('canvas').style.cursor = 'pointer';
+        }
+        </script>
+
 {% endblock javascript %}

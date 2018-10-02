@@ -12145,16 +12145,21 @@ var DomEvent = {
 };
 
 DomEvent.requestAnimationFrame = new function() {
+
 	var nativeRequest = DomElement.getPrefixed(window, 'requestAnimationFrame'),
 		requested = false,
 		callbacks = [],
 		timer;
 
 	function handleCallbacks() {
+		debugger;
 		var functions = callbacks;
 		callbacks = [];
+
 		for (var i = 0, l = functions.length; i < l; i++)
+		debugger;
 			functions[i]();
+
 		requested = nativeRequest && callbacks.length;
 		if (requested)
 			nativeRequest(handleCallbacks);
